@@ -21,6 +21,8 @@ const Layout: React.FC<Props> = (props) => (
       }
 
       body {
+        color: white;
+        background: black;
         margin: 0;
         padding: 0;
         font-size: 16px;
