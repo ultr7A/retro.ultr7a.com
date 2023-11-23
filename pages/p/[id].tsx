@@ -2,17 +2,32 @@ import React from "react"
 import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Exhibit"
+import { ExhibitProps } from "../../components/Exhibit"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = {
     id: "1",
-    title: "Prisma is the perfect ORM for Next.js",
-    content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
+    title: "The cosmic dance illuminates the tapestry of the night.",
+    content:`
+    In a mystical realm where disco wizards unravel cosmic blizzards, a vinyl vineyard emerges, brewing tea dreams with a rhythmic regard. 
+    Quantum dreamers ride waves in the stellar gleamer, 
+    while neon alchemists cast spells with a neon sheen. 
+    
+    "I'm baby," declares a voice from the lunar crooner, 
+    singing lullabies to the lunar swooner. 
+    
+    Galactic baristas craft elixirs in the cosmic vista, 
+    offering a cup to a passerby who whispers an esoteric truth about akashic records. 
+    
+    Synthetic mystics decode tales in the starry cryptic, 
+    and crystal nomads project holographs, creating a cosmic fad. 
+    Vinyl enchantresses cast sonatas in astral oneness, while retro explorers navigate paths as stellar saviors. Mystic cassette oracles divine tunes with vintage floral, and aetheric nomads blend harmonies in the celestial squad. 
+    
+    As the cosmic adventure unfolds, the declaration of "I'm baby" echoes as a charming refrain, woven into ethereal whispers that resonate with the mysteries of the universe. Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  The celestial dance illuminates the tapestry of the night.`,
     published: false,
     author: {
-      name: "Nikolas Burk",
-      email: "burk@prisma.io",
+      name: "J. R. Evans",
+      email: "ultr7a@gmail.com",
     },
   }
   return {
@@ -20,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-const Post: React.FC<PostProps> = (props) => {
+const Post: React.FC<ExhibitProps> = (props) => {
   let title = props.title
   if (!props.published) {
     title = `${title} (Draft)`
