@@ -14,7 +14,7 @@ export type ExhibitProps = {
 };
 
 const Exhibit: React.FC<{ exhibit: ExhibitProps }> = ({ exhibit }) => {
-  const authorName = exhibit.author ? exhibit.author.name : "Unknown author";
+  const authorName = exhibit.author ? exhibit.author.name : "I'm Baby Chillwave Wolf Moon";
   return (
     <div onClick={() => Router.push("/p/[id]", `/p/${exhibit.id}`)}>
       <h2>{exhibit.title}</h2>

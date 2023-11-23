@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-const Post: React.FC<ExhibitProps> = (props) => {
+const Exhibit: React.FC<ExhibitProps> = (props) => {
   let title = props.title
   if (!props.published) {
     title = `${title} (Draft)`
@@ -45,7 +45,7 @@ const Post: React.FC<ExhibitProps> = (props) => {
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
+        <p>By {props?.author?.name || "I'm Baby Chillwave Wolf Moon"}</p>
         <ReactMarkdown children={props.content} />
       </div>
       <style jsx>{`
@@ -73,4 +73,4 @@ const Post: React.FC<ExhibitProps> = (props) => {
   )
 }
 
-export default Post
+export default Exhibit

@@ -30,7 +30,11 @@ const Museum: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>Artifacts</h1>
+        <h1>R E T R O 🌈 🌒</h1>
+        <p>
+        Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  
+        The celestial dance illuminates the tapestry of the night.
+        </p>
         <main>
           {props.feed.map((exhibit) => (
             <div key={exhibit.id} className="post">
