@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="bold" data-active={isActive("/")}>
-          Feed
+          View All
         </a>
       </Link>
       <style jsx>{`
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
         a {
           text-decoration: none;
-          color: #000;
+          color: #6df;
           display: inline-block;
         }
 
