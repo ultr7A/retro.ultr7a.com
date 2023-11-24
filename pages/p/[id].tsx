@@ -68,6 +68,13 @@ const Exhibit: React.FC<ExhibitProps> = (props) => {
         button + button {
           margin-left: 1rem;
         }
+
+        code {
+          overflow-wrap: normal;
+          text-wrap: pretty;
+          max-width: 800px;
+          display: inline-block;
+        }
       `}</style>
     </Layout>
   )
