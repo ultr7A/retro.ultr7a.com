@@ -31,7 +31,7 @@ const Museum: React.FC<Props> = (props) => {
     <Layout>
       <div className="page">
         <h1>R E T R O 🌈 🌒</h1>
-        <p>
+        <p className="featured">
         Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  
         The celestial dance illuminates the tapestry of the night.
         </p>
@@ -55,6 +55,10 @@ const Museum: React.FC<Props> = (props) => {
 
         .exhibit + .exhibit {
           margin-top: 2rem;
+        }
+
+        .featured {
+          font-size: 36px;
         }
       `}</style>
     </Layout>
