@@ -64,7 +64,7 @@ const Museum: React.FC<Props> = (props) => {
         }
 
         h1 {
-          font-size:3.5em;
+          font-size:4.5em;
         }
       `}</style>
     </Layout>
