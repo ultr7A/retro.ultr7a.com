@@ -30,10 +30,12 @@ const Museum: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>R E T R O 🌈 🌒</h1>
+        <h1>R E T R O 🌈 🌒 .ultr7a.com</h1>
         <p className="featured">
-        Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  
-        The celestial dance illuminates the tapestry of the night.
+          Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  
+        </p>
+        <p className="featured">
+          The celestial dance illuminates the tapestry of the night.
         </p>
         <main>
           {props.feed.map((exhibit) => (
@@ -59,6 +61,10 @@ const Museum: React.FC<Props> = (props) => {
 
         .featured {
           font-size: 36px;
+        }
+
+        h1 {
+          font-size:1.41em;
         }
       `}</style>
     </Layout>
