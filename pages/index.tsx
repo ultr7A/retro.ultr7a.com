@@ -3,24 +3,22 @@ import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import Exhibit, { ExhibitProps } from "../components/Exhibit"
 
+import prisma from '../lib/prisma';
+
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: "1",
-      title: "r e t r o",
-      content: "a e s t h e t i c",
-      published: false,
+  const feed = await prisma.exhibit.findMany({
+    where: { published: true },
+    include: {
       author: {
-        name: "J. R. Evans",
-        email: "ultr7a@gmail.com",
+        select: { name: true },
       },
     },
-  ]
-  return { 
-    props: { feed }, 
-    revalidate: 10 
-  }
-}
+  });
+  return {
+    props: { feed },
+    revalidate: 10,
+  };
+};
 
 type Props = {
   feed: ExhibitProps[]

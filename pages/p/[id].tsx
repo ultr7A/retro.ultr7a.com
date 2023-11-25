@@ -4,53 +4,70 @@ import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
 import { ExhibitProps } from "../../components/Exhibit"
 
+import prisma from '../../lib/prisma';
+import { Router } from "next/router"
+import { useSession } from "next-auth/react"
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = {
-    id: "1",
-    title: "The cosmic dance illuminates the tapestry of the night.",
-    content:`
-    In a mystical realm where disco wizards unravel cosmic blizzards, a vinyl vineyard emerges, brewing tea dreams with a rhythmic regard. 
-    Quantum dreamers ride waves in the stellar gleamer, 
-    while neon alchemists cast spells with a neon sheen. 
-    
-    "I'm baby," declares a voice from the lunar crooner, 
-    singing lullabies to the lunar swooner. 
-    
-    Galactic baristas craft elixirs in the cosmic vista, 
-    offering a cup to a passerby who whispers an esoteric truth about akashic records. 
-    
-    Synthetic mystics decode tales in the starry cryptic, 
-    and crystal nomads project holographs, creating a cosmic fad. 
-    Vinyl enchantresses cast sonatas in astral oneness, while retro explorers navigate paths as stellar saviors. Mystic cassette oracles divine tunes with vintage floral, and aetheric nomads blend harmonies in the celestial squad. 
-    
-    As the cosmic adventure unfolds, the declaration of "I'm baby" echoes as a charming refrain, woven into ethereal whispers that resonate with the mysteries of the universe. Under the wolf-moon's silvery glow, the landscape transforms into a dreamscape.  The celestial dance illuminates the tapestry of the night.`,
-    published: false,
-    author: {
-      name: "J. R. Evans",
-      email: "ultr7a@gmail.com",
+  const exhibit = await prisma.exhibit.findUnique({
+    where: {
+      id: String(params?.id),
     },
-  }
+    include: {
+      author: {
+        select: { name: true, email: true },
+      },
+    },
+  });
   return {
-    props: post,
-  }
+    props: exhibit,
+  };
+};
+
+async function publishExhibit(id: string): Promise<void> {
+  await fetch(`/api/publish/${id}`, {
+    method: 'PUT',
+  });
+  await Router.push('/');
+}
+
+async function deleteExhibit(id: string): Promise<void> {
+  await fetch(`/api/exhibit/${id}`, {
+    method: 'DELETE',
+  });
+  Router.push('/');
 }
 
 const Exhibit: React.FC<ExhibitProps> = (props) => {
-  let title = props.title
+  const { data: session, status } = useSession();
+  if (status === 'loading') {
+    return <div>Authenticating ...</div>;
+  }
+  const userHasValidSession = Boolean(session);
+  const postBelongsToUser = session?.user?.email === props.author?.email;
+  let title = props.title;
   if (!props.published) {
-    title = `${title} (Draft)`
+    title = `${title} (Draft)`;
   }
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || "I'm Baby Chillwave Wolf Moon"}</p>
+        <p>By {props?.author?.name || 'Unknown author'}</p>
         <ReactMarkdown children={props.content} />
+        {!props.published && userHasValidSession && postBelongsToUser && (
+          <button onClick={() => publishExhibit(props.id)}>Publish</button>
+        )}
+        {
+          userHasValidSession && postBelongsToUser && (
+            <button onClick={() => deleteExhibit(props.id)}>Delete</button>
+          )
+        }
       </div>
       <style jsx>{`
         .page {
-          background: white;
+          background: var(--geist-background);
           padding: 2rem;
         }
 
@@ -68,16 +85,9 @@ const Exhibit: React.FC<ExhibitProps> = (props) => {
         button + button {
           margin-left: 1rem;
         }
-
-        code {
-          overflow-wrap: normal;
-          text-wrap: pretty;
-          max-width: 800px;
-          display: inline-block;
-        }
       `}</style>
     </Layout>
-  )
+  );
 }
 
 export default Exhibit
