@@ -11,8 +11,8 @@ export default async function handle(req, res) {
 
   console.log("creating exhibit: ",
   {
-     req,
-     res,
+     title,
+     content,
      session  
   });
 

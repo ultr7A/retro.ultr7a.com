@@ -5,7 +5,7 @@ import Layout from "../../components/Layout"
 import { ExhibitProps } from "../../components/Exhibit"
 
 import prisma from '../../lib/prisma';
-import { Router } from "next/router"
+import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -28,14 +28,16 @@ async function publishExhibit(id: string): Promise<void> {
   await fetch(`/api/publish/${id}`, {
     method: 'PUT',
   });
-  await Router.push('/');
+  
+  await useRouter().push('/');
 }
 
 async function deleteExhibit(id: string): Promise<void> {
   await fetch(`/api/exhibit/${id}`, {
     method: 'DELETE',
   });
-  Router.push('/');
+  
+  useRouter().push('/');
 }
 
 const Exhibit: React.FC<ExhibitProps> = (props) => {
